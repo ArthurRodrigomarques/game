@@ -22,6 +22,10 @@ public class Player : MonoBehaviour
     // dash
     private PlayerDash dash;
 
+    // wall jump
+    public LayerMask wallLayer;
+    private PlayerWallJump wallJump;
+
     void Start()
     {
         //Animator
@@ -35,6 +39,9 @@ public class Player : MonoBehaviour
 
         //dash
         dash = new PlayerDash(rig, transform, this, anim);
+
+        // wall jump
+        wallJump = new PlayerWallJump(rig, transform, this, anim, wallLayer);
     }
 
     void Update()
@@ -42,6 +49,7 @@ public class Player : MonoBehaviour
         movement.Move();
         jump.Jump();
         dash.HandleDash();
+        wallJump.HandleWallJump();
     }
 
     void OnCollisionEnter2D(Collision2D collision)
