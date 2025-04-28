@@ -2,6 +2,10 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+
+    // PLAYER
+    public static Player _Player;
+
     // velocidade 
     public float speed;
     public float JumpForce;
@@ -26,6 +30,9 @@ public class Player : MonoBehaviour
     public LayerMask wallLayer;
     private PlayerWallJump wallJump;
 
+    // VIDA
+    private PlayerLife playerLife;
+
     void Start()
     {
         //Animator
@@ -37,11 +44,14 @@ public class Player : MonoBehaviour
         jump = new PlayerJump(rig, anim, this);
         animationHandler = new PlayerAnimation(anim, transform);
 
-        //dash
+        // dash
         dash = new PlayerDash(rig, transform, this, anim);
 
         // wall jump
         wallJump = new PlayerWallJump(rig, transform, this, anim, wallLayer);
+
+        // vida
+        playerLife = GetComponent<PlayerLife>(); 
     }
 
     void Update()
@@ -50,6 +60,12 @@ public class Player : MonoBehaviour
         jump.Jump();
         dash.HandleDash();
         wallJump.HandleWallJump();
+
+        // dar dano de teste se apertar a tecla H
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            playerLife.DamagePlayer(10); // tira 10 de vida
+        }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
