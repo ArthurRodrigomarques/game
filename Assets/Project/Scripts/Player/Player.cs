@@ -6,6 +6,9 @@ public class Player : MonoBehaviour
     // PLAYER
     public static Player _Player;
 
+    // se o player pode andar
+    public bool canMove = true;
+
     // velocidade 
     public float speed;
     public float JumpForce;
@@ -35,6 +38,9 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+
+        _Player = this;
+
         //Animator
         rig = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
@@ -56,6 +62,10 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+
+        if (playerLife.death) return;
+        if (!canMove) return;
+
         movement.Move();
         jump.Jump();
         dash.HandleDash();

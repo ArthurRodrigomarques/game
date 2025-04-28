@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public Slider sliderLife;
-    public static GameManager instance; // Singleton para facilitar acesso
+    public static GameManager instance;
 
     void Awake()
     {
