@@ -8,11 +8,15 @@ public class PlayerLife : MonoBehaviour
     private Animator anim;
     private Rigidbody2D rig;
 
+    public Vector3 initialPosition;
+
     void Start()
     {
         anim = GetComponent<Animator>();
         rig = GetComponent<Rigidbody2D>();
+        initialPosition = transform.position;
     }
+
 
     void Update()
     {
@@ -27,7 +31,15 @@ public class PlayerLife : MonoBehaviour
             death = true;
             anim.SetTrigger("death");
             Player._Player.canMove = false;
+            StartCoroutine(DeathSequence()); 
         }
+    }
+
+    // espera para dar a tela de morte
+    IEnumerator DeathSequence()
+    {
+        yield return new WaitForSeconds(1.5f);
+        GameManager.instance.ShowGameOver();
     }
 
     public void DamagePlayer(int quant)
